@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel = KinoViewModel()
+
     var body: some View {
-        VStack {
-            Text("Project successfuly updated to GitHub")
+        NavigationView {
+            List(viewModel.upcomingGames) { kolo in
+                VStack(alignment: .leading) {
+                    Text("Kolo ID: \(kolo.id)")
+                    Text("Vreme izvlačenja: \(kolo.drawTime)")
+                }
+            }
+            .navigationTitle("Grčki Kino - Kola")
+            .onAppear {
+                viewModel.fetchUpcomingGames()
+            }
         }
-        .padding()
     }
 }
 
