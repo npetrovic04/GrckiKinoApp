@@ -16,11 +16,12 @@ struct ContentView: View {
             List(viewModel.upcomingGames) { kolo in
                 VStack(alignment: .leading) {
                     Text("Kolo ID: \(kolo.id)")
-                    Text("Vreme izvlačenja: \(kolo.drawTime)")
+                    Text("Vreme izvlačenja: \(formattedDate(kolo.drawTime))")
+                    
                     
                     // Prikaz tajmera
                     if let timeRemaining = viewModel.countdowns[kolo.id], timeRemaining > 0 {
-                        Text("Preostalo vreme: \(timeRemaining)")
+                        Text("Preostalo vreme: \(formattedTime(timeRemaining))")
                     } else {
                         Text("Izvlacenje je zavrseno")
                     }
