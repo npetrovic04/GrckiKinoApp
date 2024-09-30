@@ -31,19 +31,28 @@ class KinoViewModel: ObservableObject {
     }
 
     func startTimer(for kolo: Kolo) {
+        print("Starting timer for Kolo \(kolo.id)")
+        
         let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
+        
         timer
-            .map { _ in kolo.drawTime.timeIntervalSinceNow }  // Računa preostalo vreme do izvlačenja
+            .map { _ in
+                let currentTime = Date()  // Trenutno vreme
+                return kolo.drawTime.timeIntervalSince(currentTime)  // Računamo preostalo vreme
+            }
             .sink { [weak self] timeRemaining in
+                print("Time remaining for Kolo \(kolo.id): \(timeRemaining) seconds")
+                
                 if timeRemaining > 0 {
                     self?.countdowns[kolo.id] = timeRemaining
                 } else {
                     self?.countdowns[kolo.id] = 0
                 }
             }
-            .store(in: &cancellables) // Čuvamo i ovaj cancellable u setu
+            .store(in: &cancellables)
     }
+
+
 }
 
 

@@ -26,13 +26,18 @@ struct Kolo: Identifiable, Codable {
         id = try container.decode(Int.self, forKey: .id)
         let drawTimeRaw = try container.decode(Double.self, forKey: .drawTime)
         
-        // Ovde ispiši vrednost drawTimeRaw
+        // Ovde ispiši vrednost drawTimeRaw (sirovo vreme)
         print("Draw time (raw): \(drawTimeRaw)")
         
         // Ako je vreme u milisekundama, delimo sa 1000 da bi se dobile sekunde
         drawTime = Date(timeIntervalSince1970: drawTimeRaw / 1000.0)
+        
+        // Ispisujemo formatirano drawTime u Date formatu
+        print("Formatted draw time: \(drawTime)")
+        
         status = try container.decode(String.self, forKey: .status)
         winningNumbers = try? container.decode([Int].self, forKey: .winningNumbers)
     }
+
 
 }

@@ -26,6 +26,11 @@ struct ContentView: View {
                         Text("Izvlacenje je zavrseno")
                     }
                 }
+                // Dodaj onAppear ovde za svako kolo
+                .onAppear {
+                    print("Starting timer for Kolo \(kolo.id)")
+                    viewModel.startTimer(for: kolo)
+                }
             }
             .navigationTitle("Grčki Kino - Kola")
             .onAppear {
